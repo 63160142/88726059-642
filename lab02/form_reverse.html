@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <title >Hotel Booking</title>
+</head>
+
+ <h2 style="font-family:verdana">Hotel Booking</h2>
+ <form method="POST" action="https://angsila.cs.buu.ac.th/~wittawas/642/88726059/services/post.php">
+
+<br><br>
+
+<table height="100%">
+    <tr>
+        <th align=left ><label for="room" style="font-family:verdana"><h5>Room Type</label></th></h5>
+        <td><select name="roomtype">
+            <option value="0">Please Select</option>
+            <option value="1">Standard</option>
+            <option value="2">Luxury</option>
+            <option value="3">Deluxe</option>
+            </select></td>
+    </tr> 
+
+    <tr>
+        <th align=left ><label for="num" style="font-family:verdana"><h5>Number of Guests</label></th></h5>
+        <td><select name="numguest">
+            <option value="0">Please Select</option>
+            <option value="1-2">1-2</option>
+            <option value="3-4">3-4</option>
+            <option value="5-6">5-6</option>
+            <option value="7-8">7-8</option>
+            </select></td>
+    </tr>
+
+    <tr>
+        <th align=left><label for="name" style="font-family:verdana"><h5>Name</label></th></h5>
+        <td><input type="text" name="fname" id="fname" placeholder="First">
+            <input type="text" name="lname" id="lname" placeholder="Last"></td>
+    </tr>
+
+    <tr>
+        <th align=left><label for="mail" style="font-family:verdana"><h5>Email</label></th></h5>
+        <td><input type="text" name="email" id="email" placeholder="example@gmail.com"></td>
+    </tr>
+
+    <tr>
+        <th align=left ><label for="arival" style="font-family:verdana"><h5>Arrival</label></h5>
+        <td><input type="date" name="arivaldate" >
+            <input type="time" name="arivaltime" ></td>
+    </tr>
+
+    <tr>
+        <th align=left ><label for="departure" style="font-family:verdana"><h5>Departure</label></h5>
+        <td><input type="date" name="departuredate" >
+            <input type="time" name="departuretime" ></td>
+    </tr>
+
+    <tr>
+        <th align=left ><label for="freepikup" style="font-family:verdana"><h5>Free Pickup</label></th></h5>
+        <td><input type="radio" name="pikup" id="pikup" value="Yes">Yes, Sure!<br>
+            <input type="radio" name="pikup" id="pikup" value="No">No, I rented a car.</td>
+    </tr>
+
+    <tr>
+        <th align=left><label for="flightnumber" style="font-family:verdana"><h5>Flight Number</label></th></h5>
+        <td><input type="text" name="flightnum" id="flightnum"" placeholder="A1234" maxlength=5></td>
+    </tr>
+
+    </tr>
+            <th align=left rowspan = "2" style="font-family:verdana"><h5>Other requests</th></h5>
+            <td><Textarea name="otherreq" id="otherreq" rows="5" cols="50"></Textarea></td>
+    </tr>
+
+    <tr>
+            <td><input type="reset" value="Reset">
+                <input type="submit" value="Complete Reservation"></td>
+    </tr>
+    
+    
+</table>
+</form>
+
+</html>
