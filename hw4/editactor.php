@@ -1,29 +1,33 @@
 <?php
 require_once("dbconfig.php");
 
-// ตรวจสอบว่ามีการ post มาจากฟอร์ม ถึงจะลบ
 if ($_POST){
     $id = $_POST['id'];
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
+    $doc_num = $_POST['doc_num'];
+    $doc_title = $_POST['doc_title'];
+    $doc_start_date = $_POST['doc_start_date'];
+    $doc_to_date = $_POST['doc_to_date'];
+    $doc_status = $_POST['doc_status'];
+    $doc_file_name = $_POST['doc_file_name'];
 
-    $sql = "UPDATE actor 
-            SET first_name = ?, 
-                last_name = ?,
-                email = ?,
-                last_update = CURRENT_TIMESTAMP
-            WHERE actor_id = ?";
+    $sql = "UPDATE documents
+            SET doc_num = ?, 
+                doc_title = ?,
+                doc_start_date = ?,
+                doc_to_date = ?,
+                doc_status = ?,
+                doc_file_name = ?
+            WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("sssi", $fname, $lname, $email, $id);
+    $stmt->bind_param("ssssssi", $doc_num, $doc_title, $doc_start_date,$doc_to_date, $doc_status,$doc_file_name,$id);
     $stmt->execute();
 
-    header("location: actor.php");
+    header("location: documents.php");
 } else {
     $id = $_GET['id'];
     $sql = "SELECT *
-            FROM actor
-            WHERE actor_id = ?";
+            FROM documents
+            WHERE id = ?";
 
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $id);
@@ -46,21 +50,33 @@ if ($_POST){
 
 <body>
     <div class="container">
-        <h1>Edit an actor</h1>
+        <h1>Edit Order</h1>
         <form action="editactor.php" method="post">
             <div class="form-group">
-                <label for="fname">First name</label>
-                <input type="text" class="form-control" name="fname" id="fname" value="<?php echo $row->first_name;?>">
+                <label for="doc_num">Order</label>
+                <input type="text" class="form-control" name="doc_num" id="doc_num" value="<?php echo $row->doc_num;?>">
             </div>
             <div class="form-group">
-                <label for="lname">Last name</label>
-                <input type="text" class="form-control" name="lname" id="lname" value="<?php echo $row->last_name;?>">
+                <label for="doc_title">Order Name</label>
+                <input type="text" class="form-control" name="doc_title" id="doc_title" value="<?php echo $row->doc_title;?>">
             </div>
             <div class="form-group">
-                <label for="lname">E-mail</label>
-                <input type="text" class="form-control" name="email" id="email" value="<?php echo $row->email;?>">
+                <label for="doc_start_date">Start Date</label>
+                <input type="text" class="form-control" name="doc_start_date" id="doc_start_date" value="<?php echo $row->doc_start_date;?>">
             </div>
-            <input type="hidden" name="id" value="<?php echo $row->actor_id;?>">
+            <div class="form-group">
+                <label for="doc_to_date">To Date</label>
+                <input type="text" class="form-control" name="doc_to_date" id="doc_to_date" value="<?php echo $row->doc_to_date;?>">
+            </div>
+            <div class="form-group">
+                <label for="doc_status">Status</label>
+                <input type="text" class="form-control" name="doc_status" id="doc_status" value="<?php echo $row->doc_status;?>">
+            </div>
+            <div class="form-group">
+                <label for="doc_file_name">File Name</label>
+                <input type="text" class="form-control" name="doc_file_name" id="doc_file_name" value="<?php echo $row->doc_file_name;?>">
+            </div>
+            <input type="hidden" name="id" value="<?php echo $row->id;?>">
             <button type="submit" class="btn btn-success">Update</button>
         </form>
 </body>
