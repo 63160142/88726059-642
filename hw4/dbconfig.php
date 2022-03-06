@@ -1,9 +1,9 @@
 <?php
 // ตั้งค่าตัวแปรสำหรับเชื่อมต่อฐานข้อมูล
-$db_host = "localhost";
+$db_host = "database";
 $db_user = "root";
-$db_password = "********";
-$db_name = "testdb";
+$db_password = "tiger";
+$db_name = "docdb";
 
 // connect ไปยังฐานข้อมูล
 $mysqli = new mysqli($db_host, $db_user, $db_password, $db_name);

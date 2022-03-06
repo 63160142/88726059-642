@@ -3,8 +3,9 @@ require_once("dbconfig.php");
 
 // ตรวจสอบว่ามีการ post มาจากฟอร์ม ถึงจะเพิ่ม
 if ($_POST){
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
+    $stf_code = $_POST['stf_code'];
+    $stf_name = $_POST['stf_name'];
+    
 
     // insert a record by prepare and bind
     // The argument may be one of four types:
@@ -16,14 +17,14 @@ if ($_POST){
     // ในส่วนของ INTO ให้กำหนดให้ตรงกับชื่อคอลัมน์ในตาราง actor
     // ต้องแน่ใจว่าคำสั่ง INSERT ทำงานใด้ถูกต้อง - ให้ทดสอบก่อน
     $sql = "INSERT 
-            INTO actor (first_name, last_name) 
+            INTO staff ( stf_code,stf_name) 
             VALUES (?, ?)";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("ss", $fname, $lname);
+    $stmt->bind_param("ss", $stf_code, $stf_name);
     $stmt->execute();
 
-    // redirect ไปยัง actor.php
-    header("location: actor.php");
+    
+    header("location: staff.php");
 }
 ?>
 <!DOCTYPE html>
@@ -41,14 +42,14 @@ if ($_POST){
 <body>
     <div class="container">
         <h1>Add an actor</h1>
-        <form action="newactor.php" method="post">
+        <form action="newstaff.php" method="post">
             <div class="form-group">
-                <label for="fname">First name</label>
-                <input type="text" class="form-control" name="fname" id="fname">
+                <label for="stf_code">Employee</label>
+                <input type="text" class="form-control" name="stf_code" id="stf_code">
             </div>
             <div class="form-group">
-                <label for="lname">Last name</label>
-                <input type="text" class="form-control" name="lname" id="lname">
+                <label for="stf_name">Employee Name</label>
+                <input type="text" class="form-control" name="stf_name" id="stf_name">
             </div>
             <button type="submit" class="btn btn-success">Save</button>
         </form>

@@ -6,14 +6,16 @@ if ($_POST){
     $id = $_POST['id'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
+    $email = $_POST['email'];
 
     $sql = "UPDATE actor 
             SET first_name = ?, 
                 last_name = ?,
+                email = ?,
                 last_update = CURRENT_TIMESTAMP
             WHERE actor_id = ?";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("ssi", $fname, $lname, $id);
+    $stmt->bind_param("sssi", $fname, $lname, $email, $id);
     $stmt->execute();
 
     header("location: actor.php");
@@ -53,6 +55,10 @@ if ($_POST){
             <div class="form-group">
                 <label for="lname">Last name</label>
                 <input type="text" class="form-control" name="lname" id="lname" value="<?php echo $row->last_name;?>">
+            </div>
+            <div class="form-group">
+                <label for="lname">E-mail</label>
+                <input type="text" class="form-control" name="email" id="email" value="<?php echo $row->email;?>">
             </div>
             <input type="hidden" name="id" value="<?php echo $row->actor_id;?>">
             <button type="submit" class="btn btn-success">Update</button>

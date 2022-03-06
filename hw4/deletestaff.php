@@ -8,20 +8,20 @@ if ($_POST){
 
     // เตรียมคำสั่ง DELETE
     $sql = "DELETE 
-            FROM actor 
-            WHERE actor_id = ?";
+            FROM staff
+            WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
 
     // redirect ไปยังหน้า actor.php
-    header("location: actor.php");
+    header("location: staff.php");
 } else {
     // ดึงค่าที่ส่งผ่านมาทาง query string มากำหนดให้ตัวแปร $id
     $id = $_GET['id'];
     $sql = "SELECT *
-            FROM actor
-            WHERE actor_id = ?";
+            FROM staff
+            WHERE id = ?";
 
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $id);
@@ -47,20 +47,18 @@ if ($_POST){
         <h1>Delete an actor</h1>
         <table class="table table-hover">
             <tr>
-                <th style='width:120px'>First name</th>
-                <td><?php echo $row->first_name;?></td>
+                <th style='width:120px'>Employee</th>
+                <td><?php echo $row->stf_code;?></td>
             </tr>
             <tr>
-                <th>Last name</th>
-                <td><?php echo $row->last_name;?></td>
+                <th>Employee name</th>
+                <td><?php echo $row->stf_name;?></td>
             </tr>
             <tr>
-                <th>Last update</th>
-                <td><?php echo $row->last_update;?></td>
-            </tr>
+
         </table>
-        <form action="deleteactor.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $row->actor_id;?>">
+        <form action="deletestaff.php" method="post">
+            <input type="hidden" name="id" value="<?php echo $row->id;?>">
             <input type="submit" value="Confirm delete" class="btn btn-danger">
             <button type="button" class="btn btn-warning" onClick="window.history.back()">Cancel Delete</button>
         </form>

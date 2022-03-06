@@ -12,9 +12,10 @@
 
 <body>
     <div class="container">
-        <h1>Actor | <a href='newactor.php'><span class='glyphicon glyphicon-plus'></span></a></h1>
+        <h1>Employee | <a href='newstaff.php'><span class='glyphicon glyphicon-plus'></span></a>
+        |<a href='documents.php'><span class='glyphicon glyphicon-arrow-left'></span></a></h1>
         <form action="#" method="post">
-            <input type="text" name="kw" placeholder="Enter actor name" value="">
+            <input type="text" name="kw" placeholder="Enter Order, Order name" value="">
             <input type="submit">
         </form>
 
@@ -30,9 +31,9 @@
         // ถ้าต้องการแทนที่ค่าของตัวแปร ให้แทนที่ตัวแปรด้วยเครื่องหมาย ? 
         // concat() เป็นฟังก์ชั่นสำหรับต่อข้อความ
         $sql = "SELECT *
-                FROM actor
-                WHERE concat(first_name, last_name) LIKE ? 
-                ORDER BY first_name";
+                FROM staff
+                WHERE concat(stf_code, stf_name) LIKE ? 
+                ORDER BY stf_code";
 
         // Prepare query
         // Bind all variables to the prepared statement
@@ -54,9 +55,8 @@
                         <thead>
                             <tr>
                                 <th scope='col'>#</th>
-                                <th scope='col'>First name</th>
-                                <th scope='col'>Last name</th>
-                                <th scope='col'>Last updated</th>
+                                <th scope='col'>Employee</th>
+                                <th scope='col'>Employee Name</th>
                                 <th scope='col'></th>
                             </tr>
                         </thead>
@@ -69,13 +69,12 @@
             while($row = $result->fetch_object()){ 
                 $table.= "<tr>";
                 $table.= "<td>" . $i++ . "</td>";
-                $table.= "<td>$row->first_name</td>";
-                $table.= "<td>$row->last_name</td>";
-                $table.= "<td>$row->last_update</td>";
+                $table.= "<td>$row->stf_code</td>";
+                $table.= "<td>$row->stf_name</td>";
                 $table.= "<td>";
-                $table.= "<a href='editactor.php?id=$row->actor_id'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
+                $table.= "<a href='editstaff.php?id=$row->id'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
                 $table.= " | ";
-                $table.= "<a href='deleteactor.php?id=$row->actor_id'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>";
+                $table.= "<a href='deletestaff.php?id=$row->id'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>";
                 $table.= "</td>";
                 $table.= "</tr>";
             }
