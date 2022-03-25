@@ -1,23 +1,15 @@
 <?php
 require_once("dbconfig.php");
-
-// ตรวจสอบว่ามีการ post มาจากฟอร์ม ถึงจะลบ
 if ($_POST){
-    // ดึงค่าที่โพสจากฟอร์มตาม name ที่กำหนดในฟอร์มมากำหนดให้ตัวแปร $id
     $id = $_POST['id'];
-
-    // เตรียมคำสั่ง DELETE
     $sql = "DELETE 
             FROM staff
             WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
-
-    // redirect ไปยังหน้า actor.php
     header("location: staff.php");
 } else {
-    // ดึงค่าที่ส่งผ่านมาทาง query string มากำหนดให้ตัวแปร $id
     $id = $_GET['id'];
     $sql = "SELECT *
             FROM staff
@@ -44,7 +36,7 @@ if ($_POST){
 
 <body>
     <div class="container">
-        <h1>Delete an actor</h1>
+        <h1>Delete Employee</h1>
         <table class="table table-hover">
             <tr>
                 <th style='width:120px'>Employee</th>

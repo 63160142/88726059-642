@@ -1,21 +1,8 @@
 <?php
 require_once("dbconfig.php");
-
-// ตรวจสอบว่ามีการ post มาจากฟอร์ม ถึงจะเพิ่ม
 if ($_POST){
     $stf_code = $_POST['stf_code'];
     $stf_name = $_POST['stf_name'];
-    
-
-    // insert a record by prepare and bind
-    // The argument may be one of four types:
-    //  i - integer
-    //  d - double
-    //  s - string
-    //  b - BLOB
-
-    // ในส่วนของ INTO ให้กำหนดให้ตรงกับชื่อคอลัมน์ในตาราง actor
-    // ต้องแน่ใจว่าคำสั่ง INSERT ทำงานใด้ถูกต้อง - ให้ทดสอบก่อน
     $sql = "INSERT 
             INTO staff ( stf_code,stf_name) 
             VALUES (?, ?)";
@@ -41,7 +28,7 @@ if ($_POST){
 
 <body>
     <div class="container">
-        <h1>Add an actor</h1>
+        <h1>Add Employee</h1>
         <form action="newstaff.php" method="post">
             <div class="form-group">
                 <label for="stf_code">Employee</label>
