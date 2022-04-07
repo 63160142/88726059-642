@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['loggined'])){
+    header('Location: login.php');
+}else{
+    echo "<div align = center><h1><span class='glyphicon glyphicon-heart-empty'> Welcome ".$_SESSION['stf_name'] . "</span></h1></div>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +23,7 @@
 <body>
     <div align =center class="container">
     <h1 align =right>ค้นหารายชื่อการแต่งตั้ง&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <a href='documents.php'><span class='glyphicon glyphicon-globe'></span></a></h1>
+        <a href='documents.php'><span class='glyphicon glyphicon-home'></span></a></h1>
         <form align =center action="#" method="post">
             <input type="text" name="kw" placeholder="Enter document name" value="" size=140>
             <button type="submit" class="glyphicon glyphicon-search btn btn-info"></button>

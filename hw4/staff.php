@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['loggined'])){
+    header('Location: login.php');
+}else{
+    echo "<div align = center><h1><span class='glyphicon glyphicon-heart-empty'> Welcome ".$_SESSION['stf_name'] . "</span></h1></div>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,40 +23,59 @@
 <body>
     <div class="container">
         <h1>Employee | <a href='newstaff.php'><span class='glyphicon glyphicon-plus'></span></a>
-        |<a href='documents.php'><span class='glyphicon glyphicon-chevron-left'></span></a></h1>
+        |<a href='documents.php'><span class='glyphicon glyphicon-arrow-left'></span></a></h1>
         <form action="#" method="post">
-            <input type="text" name="kw" placeholder="Enter ID Employee" value="">
+            <input type="text" name="kw" placeholder="Enter Order, Order name" value="">
             <input type="submit">
         </form>
 
         <?php
         require_once("dbconfig.php");
+
+        // ตัวแปร $_POST เป็นตัวแปรอะเรย์ของ php ที่มีค่าของข้อมูลที่โพสมาจากฟอร์ม
+        // ดึงค่าที่โพสจากฟอร์มตาม name ที่กำหนดในฟอร์มมากำหนดให้ตัวแปร $kw
+        // ใส่ % เพือเตรียมใช้กับ LIKE
         @$kw = "%{$_POST['kw']}%";
+
+        // เตรียมคำสั่ง SELECT ที่ถูกต้อง(ทดสอบให้แน่ใจ)
+        // ถ้าต้องการแทนที่ค่าของตัวแปร ให้แทนที่ตัวแปรด้วยเครื่องหมาย ? 
+        // concat() เป็นฟังก์ชั่นสำหรับต่อข้อความ
         $sql = "SELECT *
                 FROM staff
                 WHERE concat(stf_code, stf_name) LIKE ? 
                 ORDER BY stf_code";
+
+        // Prepare query
+        // Bind all variables to the prepared statement
+        // Execute the statement
+        // Get the mysqli result variable from the statement
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("s", $kw);
         $stmt->execute();
+        // Retrieves a result set from a prepared statement
         $result = $stmt->get_result();
         
+        // num_rows เป็นจำนวนแถวที่ได้กลับคืนมา
         if ($result->num_rows == 0) {
             echo "Not found!";
         } else {
             echo "Found " . $result->num_rows . " record(s).";
+            // สร้างตัวแปรเพื่อเก็บข้อความ html 
             $table = "<table class='table table-hover'>
                         <thead>
                             <tr>
                                 <th scope='col'>#</th>
                                 <th scope='col'>Employee</th>
                                 <th scope='col'>Employee Name</th>
-                                <th scope='col'>Edit/Delete</th>
+                                <th scope='col'></th>
                             </tr>
                         </thead>
                         <tbody>";
                         
+            // 
             $i = 1; 
+
+            // ดึงข้อมูลออกมาทีละแถว และกำหนดให้ตัวแปร row 
             while($row = $result->fetch_object()){ 
                 $table.= "<tr>";
                 $table.= "<td>" . $i++ . "</td>";
